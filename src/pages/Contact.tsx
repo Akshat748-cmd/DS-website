@@ -8,7 +8,8 @@ import {
   CheckCircle2, 
   Instagram, 
   ShieldCheck, 
-  Calendar 
+  MessageSquare,
+  Sparkles 
 } from 'lucide-react';
 import { BRAND_INFO, TEST_LOCATIONS } from '../data/content';
 import { PageHeader } from '../components/layout/PageHeader';
@@ -35,50 +36,56 @@ export const Contact: React.FC = () => {
       <PageHeader 
         tag="GET IN TOUCH"
         title="CONTACT OUR INSTRUCTOR DIRECTLY."
-        subtitle="Have questions about lesson availability, test centre preparation, or overseas licence conversions? Send us a message or give us a call."
+        subtitle="Have questions about lesson availability, test centre preparation, or overseas licence conversions? Send us a message or call directly."
         breadcrumb="Contact"
       />
 
-      <section className="section-padding">
+      <section className="section-padding contact-main-section">
         <div className="container">
-          <div className="contact-grid">
+          <div className="contact-grid-layout">
             {/* Left Info Column */}
             <div className="contact-info-col">
               <div className="contact-info-card aura-card">
-                <span className="pill-badge accent">DIRECT SUPPORT</span>
-                <h3 className="info-title">Instructor Contact & Operational Details</h3>
+                <div className="badge-wrapper">
+                  <span className="contact-tag-badge">DIRECT SUPPORT</span>
+                </div>
+                <h3 className="info-title">Instructor Contact & Operations</h3>
                 <p className="info-desc">
-                  We aim to respond to all enquiries within 2-4 hours. For urgent test day car hire bookings within 48 hours, phone call or SMS is recommended.
+                  We respond to all enquiries within 2–4 hours. For urgent test day car hire bookings within 48 hours, direct phone call or SMS is recommended.
                 </p>
 
                 <div className="contact-detail-items">
                   <div className="detail-item">
-                    <div className="detail-icon"><Phone size={20} /></div>
-                    <div>
+                    <div className="detail-icon"><Phone size={18} /></div>
+                    <div className="detail-content">
                       <span className="detail-label">Phone & SMS (Direct Instructor)</span>
-                      <strong className="detail-val">{BRAND_INFO.phonePlaceholder}</strong>
+                      <a href={`tel:${BRAND_INFO.phonePlaceholder}`} className="detail-val-link">
+                        {BRAND_INFO.phonePlaceholder}
+                      </a>
                     </div>
                   </div>
 
                   <div className="detail-item">
-                    <div className="detail-icon"><Mail size={20} /></div>
-                    <div>
+                    <div className="detail-icon"><Mail size={18} /></div>
+                    <div className="detail-content">
                       <span className="detail-label">Email Inquiries</span>
-                      <strong className="detail-val">{BRAND_INFO.emailPlaceholder}</strong>
+                      <a href={`mailto:${BRAND_INFO.emailPlaceholder}`} className="detail-val-link">
+                        {BRAND_INFO.emailPlaceholder}
+                      </a>
                     </div>
                   </div>
 
                   <div className="detail-item">
-                    <div className="detail-icon"><Clock size={20} /></div>
-                    <div>
+                    <div className="detail-icon"><Clock size={18} /></div>
+                    <div className="detail-content">
                       <span className="detail-label">Operating Hours</span>
                       <strong className="detail-val">{BRAND_INFO.hoursPlaceholder}</strong>
                     </div>
                   </div>
 
                   <div className="detail-item">
-                    <div className="detail-icon"><MapPin size={20} /></div>
-                    <div>
+                    <div className="detail-icon"><MapPin size={18} /></div>
+                    <div className="detail-content">
                       <span className="detail-label">Primary Service Area</span>
                       <strong className="detail-val">{BRAND_INFO.serviceArea}</strong>
                     </div>
@@ -86,20 +93,20 @@ export const Contact: React.FC = () => {
                 </div>
 
                 <div className="contact-hubs-box">
-                  <h4>Popular Service NSW Centres Covered:</h4>
-                  <div className="hubs-pills">
+                  <h4 className="hubs-heading">Popular Service NSW Test Centres Covered:</h4>
+                  <div className="hubs-pills-grid">
                     {TEST_LOCATIONS.map((loc) => (
-                      <span key={loc.id} className="hub-pill">{loc.name}</span>
+                      <div key={loc.id} className="hub-pill">
+                        <MapPin size={12} className="hub-pin-icon" />
+                        <span>{loc.name}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="contact-social-box">
-                  <span className="social-label">Follow our test route reels:</span>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="instagram-badge">
-                    <Instagram size={16} />
-                    <span>Instagram @CanguruberDS (Placeholder)</span>
-                  </a>
+                <div className="contact-accreditation-footer">
+                  <ShieldCheck size={20} className="gold-accent" />
+                  <span>NSW Transport Accredited Driving Instructor Fleet</span>
                 </div>
               </div>
             </div>
@@ -109,18 +116,35 @@ export const Contact: React.FC = () => {
               <div className="contact-form-card aura-card">
                 {submitted ? (
                   <div className="form-success-box">
-                    <CheckCircle2 size={54} className="success-icon" />
-                    <h3>Thank You for Reaching Out!</h3>
-                    <p>
-                      Your message has been received (Mock UI State). In the live production version, our accredited instructor will review your enquiry and contact you via phone or email promptly.
+                    <div className="success-icon-circle">
+                      <CheckCircle2 size={44} className="success-icon" />
+                    </div>
+                    <h3 className="success-title">Enquiry Received!</h3>
+                    <p className="success-desc">
+                      Thank you, <strong>{formData.name || 'Student'}</strong>. Your message has been sent directly to our instructor. We will review your test details and get in touch with you shortly.
                     </p>
-                    <Button onClick={() => setSubmitted(false)} variant="primary">
+                    <button 
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({
+                          name: '',
+                          email: '',
+                          phone: '',
+                          suburb: '',
+                          serviceInterest: 'driving-lesson',
+                          message: ''
+                        });
+                      }} 
+                      className="btn btn-gold"
+                    >
                       Send Another Message
-                    </Button>
+                    </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="enquiry-form">
-                    <span className="pill-badge">ONLINE ENQUIRY FORM</span>
+                    <div className="badge-wrapper">
+                      <span className="contact-tag-badge">ONLINE ENQUIRY FORM</span>
+                    </div>
                     <h3 className="form-heading">Send Us a Direct Message</h3>
                     
                     <div className="form-row-2">
@@ -165,7 +189,7 @@ export const Contact: React.FC = () => {
                         <input 
                           type="text" 
                           className="form-input" 
-                          placeholder="e.g. Mascot, Botany, Strathfield"
+                          placeholder="e.g. Mascot, Botany, Marrickville"
                           value={formData.suburb}
                           onChange={(e) => setFormData({...formData, suburb: e.target.value})}
                         />
@@ -180,9 +204,10 @@ export const Contact: React.FC = () => {
                         onChange={(e) => setFormData({...formData, serviceInterest: e.target.value})}
                       >
                         <option value="driving-lesson">Driving Lesson (1-on-1 Practice)</option>
-                        <option value="car-hire">Car Hire for Practical Test</option>
-                        <option value="lesson-and-car">Lesson + Car Package (Warm Up + Test)</option>
-                        <option value="overseas-conversion">Overseas Licence Conversion</option>
+                        <option value="car-hire">Car Hire for Practical Driving Test</option>
+                        <option value="lesson-and-car">Lesson + Car Combo (Warm-up + Test)</option>
+                        <option value="test-preparation">Service NSW Test Route Mock Audit</option>
+                        <option value="overseas-conversion">Overseas Driver Licence Conversion</option>
                         <option value="other">General Question / Other</option>
                       </select>
                     </div>
@@ -191,6 +216,7 @@ export const Contact: React.FC = () => {
                       <label className="form-label">Your Message or Test Date *</label>
                       <textarea 
                         className="form-textarea" 
+                        rows={4}
                         placeholder="Tell us about your driving experience, target test date, or any specific concerns..."
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -198,12 +224,13 @@ export const Contact: React.FC = () => {
                       />
                     </div>
 
-                    <Button type="submit" variant="primary" size="lg" icon={<Send size={18} />} className="w-full">
-                      SEND MESSAGE
-                    </Button>
+                    <button type="submit" className="btn btn-gold w-full submit-contact-btn">
+                      <span>SEND ENQUIRY MESSAGE</span>
+                      <Send size={16} />
+                    </button>
 
                     <p className="form-footer-disclaimer">
-                      We respect your privacy. Your information is used strictly to answer your driving enquiry.
+                      🔒 We respect your privacy. Your information is used strictly to coordinate your driving lessons and licence preparation.
                     </p>
                   </form>
                 )}
@@ -214,38 +241,63 @@ export const Contact: React.FC = () => {
       </section>
 
       <style>{`
-        .contact-grid {
+        .contact-main-section {
+          background-color: var(--bg-warm-white);
+        }
+        .contact-grid-layout {
           display: grid;
-          grid-template-columns: 0.9fr 1.1fr;
-          gap: 3rem;
+          grid-template-columns: 1fr 1.15fr;
+          gap: 2.5rem;
           align-items: flex-start;
         }
         @media (max-width: 960px) {
-          .contact-grid {
+          .contact-grid-layout {
             grid-template-columns: 1fr;
+            gap: 2rem;
           }
         }
+
+        /* Info Card */
         .contact-info-card {
           background: #FFFFFF;
           padding: 2.5rem;
-          border-radius: var(--radius-xl);
+          border-radius: var(--radius-lg);
+          border: 1px solid var(--border-light);
+          box-shadow: 0 10px 30px rgba(7, 19, 29, 0.05);
+        }
+        .badge-wrapper {
+          margin-bottom: 0.75rem;
+        }
+        .contact-tag-badge {
+          display: inline-block;
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-size: 0.75rem;
+          letter-spacing: 0.14em;
+          color: var(--accent-gold);
+          background: rgba(210, 176, 76, 0.12);
+          border: 1px solid rgba(210, 176, 76, 0.3);
+          padding: 0.3rem 0.75rem;
+          border-radius: var(--radius-full);
         }
         .info-title {
           font-size: 1.5rem;
           font-weight: 900;
-          margin-top: 0.75rem;
+          color: #07131D;
           margin-bottom: 0.75rem;
+          line-height: 1.2;
         }
         .info-desc {
-          font-size: 0.95rem;
-          color: var(--text-secondary);
+          font-size: 0.925rem;
+          color: #4A5866;
           margin-bottom: 2rem;
-          line-height: 1.5;
+          line-height: 1.6;
         }
+
         .contact-detail-items {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 1.25rem;
           margin-bottom: 2rem;
           padding-bottom: 2rem;
           border-bottom: 1px solid var(--border-light);
@@ -256,118 +308,217 @@ export const Contact: React.FC = () => {
           gap: 1rem;
         }
         .detail-icon {
-          width: 44px;
-          height: 44px;
+          width: 40px;
+          height: 40px;
           border-radius: var(--radius-md);
-          background: var(--bg-surface-alt);
+          background: rgba(7, 19, 29, 0.05);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--text-primary);
+          color: var(--accent-gold);
           flex-shrink: 0;
         }
+        .detail-content {
+          display: flex;
+          flex-direction: column;
+        }
         .detail-label {
-          display: block;
-          font-size: 0.775rem;
+          font-size: 0.75rem;
           text-transform: uppercase;
-          letter-spacing: 0.04em;
-          color: var(--text-muted);
-          margin-bottom: 0.2rem;
+          letter-spacing: 0.05em;
+          color: #718096;
+          font-weight: 700;
+          margin-bottom: 0.15rem;
         }
         .detail-val {
-          font-size: 1rem;
-          color: var(--text-primary);
-        }
-        .contact-hubs-box {
-          margin-bottom: 2rem;
-        }
-        .contact-hubs-box h4 {
-          font-size: 0.9rem;
-          font-weight: 800;
-          margin-bottom: 0.75rem;
-        }
-        .hubs-pills {
-          display: flex;
-          flex-direction: column;
-          gap: 0.4rem;
-        }
-        .hub-pill {
-          font-size: 0.8rem;
-          color: var(--text-secondary);
-          background: var(--bg-main);
-          padding: 0.35rem 0.75rem;
-          border-radius: var(--radius-sm);
-        }
-        .contact-social-box {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-        .social-label {
-          font-size: 0.8rem;
-          color: var(--text-muted);
-          font-weight: 600;
-        }
-        .instagram-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 0.85rem;
+          font-size: 0.975rem;
+          color: #07131D;
           font-weight: 700;
-          color: var(--text-primary);
-          background: var(--bg-surface-alt);
-          padding: 0.5rem 0.85rem;
-          border-radius: var(--radius-md);
-          width: fit-content;
+        }
+        .detail-val-link {
+          font-size: 0.975rem;
+          color: #07131D;
+          font-weight: 700;
+          transition: color 0.2s ease;
+        }
+        .detail-val-link:hover {
+          color: var(--accent-gold);
         }
 
-        /* Form */
+        .contact-hubs-box {
+          margin-bottom: 1.75rem;
+        }
+        .hubs-heading {
+          font-size: 0.85rem;
+          font-weight: 800;
+          color: #07131D;
+          margin-bottom: 0.75rem;
+        }
+        .hubs-pills-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem;
+        }
+        @media (max-width: 600px) {
+          .hubs-pills-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+        .hub-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #2D3748;
+          background: #F7F5F0;
+          border: 1px solid var(--border-light);
+          padding: 0.4rem 0.75rem;
+          border-radius: var(--radius-sm);
+        }
+        .hub-pin-icon {
+          color: var(--accent-gold);
+          flex-shrink: 0;
+        }
+
+        .contact-accreditation-footer {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding-top: 1.25rem;
+          border-top: 1px solid var(--border-light);
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: #4A5866;
+        }
+        .gold-accent {
+          color: var(--accent-gold);
+          flex-shrink: 0;
+        }
+
+        /* Form Card */
         .contact-form-card {
           background: #FFFFFF;
           padding: 2.5rem;
-          border-radius: var(--radius-xl);
+          border-radius: var(--radius-lg);
+          border: 1px solid var(--border-light);
+          box-shadow: 0 10px 30px rgba(7, 19, 29, 0.05);
         }
         @media (max-width: 600px) {
           .contact-form-card {
-            padding: 1.5rem;
+            padding: 1.75rem 1.25rem;
           }
         }
         .form-heading {
-          font-size: 1.6rem;
+          font-size: 1.5rem;
           font-weight: 900;
-          margin-top: 0.75rem;
+          color: #07131D;
           margin-bottom: 1.5rem;
+        }
+
+        /* Form Fields Styling */
+        .enquiry-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.15rem;
         }
         .form-row-2 {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 1.25rem;
+          gap: 1.15rem;
         }
         @media (max-width: 640px) {
           .form-row-2 {
             grid-template-columns: 1fr;
-            gap: 0;
+            gap: 1.15rem;
           }
         }
-        .form-footer-disclaimer {
-          font-size: 0.75rem;
-          color: var(--text-muted);
-          text-align: center;
-          margin-top: 1rem;
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
         }
+        .form-label {
+          font-family: var(--font-display);
+          font-size: 0.825rem;
+          font-weight: 700;
+          color: #07131D;
+          letter-spacing: 0.02em;
+        }
+        .form-input, .form-select, .form-textarea {
+          width: 100%;
+          font-family: var(--font-body);
+          font-size: 0.925rem;
+          color: #07131D;
+          background: #FAFAF8;
+          border: 1.5px solid #DDD9CE;
+          border-radius: var(--radius-md);
+          padding: 0.8rem 1rem;
+          outline: none;
+          transition: all 0.2s ease;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+          background: #FFFFFF;
+          border-color: var(--accent-gold);
+          box-shadow: 0 0 0 3.5px rgba(210, 176, 76, 0.18);
+        }
+        .form-input::placeholder, .form-textarea::placeholder {
+          color: #A0AEC0;
+        }
+        .form-textarea {
+          resize: vertical;
+          min-height: 100px;
+          line-height: 1.5;
+        }
+        .form-select {
+          cursor: pointer;
+        }
+
+        .submit-contact-btn {
+          margin-top: 0.5rem;
+          width: 100%;
+          padding: 0.95rem;
+        }
+        .form-footer-disclaimer {
+          font-size: 0.775rem;
+          color: #718096;
+          text-align: center;
+          margin-top: 0.5rem;
+          line-height: 1.5;
+        }
+
+        /* Success State */
         .form-success-box {
           text-align: center;
           padding: 3rem 1.5rem;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 1rem;
+          gap: 1.25rem;
+        }
+        .success-icon-circle {
+          width: 72px;
+          height: 72px;
+          border-radius: 50%;
+          background: rgba(34, 197, 94, 0.12);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .success-icon {
-          color: var(--brand-success);
+          color: #16A34A;
         }
-        .w-full {
-          width: 100%;
+        .success-title {
+          font-family: var(--font-display);
+          font-size: 1.8rem;
+          font-weight: 900;
+          color: #07131D;
+        }
+        .success-desc {
+          font-size: 0.95rem;
+          color: #4A5866;
+          max-width: 420px;
+          line-height: 1.6;
         }
       `}</style>
     </div>
