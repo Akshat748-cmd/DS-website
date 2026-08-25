@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'yellow' | 'gold' | 'dark' | 'outline' | 'outline-light' | 'ghost';
+  variant?: 'primary' | 'yellow' | 'gold' | 'dark' | 'outline' | 'outline-light' | 'glass-outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   to?: string;
   href?: string;
