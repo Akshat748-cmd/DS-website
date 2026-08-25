@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, 
-  Play, 
   Star, 
   UserCheck, 
   Car, 
-  ShieldCheck, 
-  X 
+  ShieldCheck 
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 
@@ -17,7 +15,6 @@ interface MovingCarHeroProps {
 export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => {
   // Quick & Crisp Cinematic Timeline
   const [timelineStep, setTimelineStep] = useState<number>(0);
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
     const t1 = setTimeout(() => setTimelineStep(1), 100);
@@ -133,18 +130,6 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
               <span>EXPLORE SERVICES</span>
               <ArrowRight size={17} />
             </button>
-
-            {/* Video Story Button */}
-            <button 
-              onClick={() => setIsVideoModalOpen(true)}
-              className="hero-watch-story-btn"
-              aria-label="Watch Canguruber driving story"
-            >
-              <div className="play-ring-icon">
-                <Play size={14} fill="currentColor" />
-              </div>
-              <span>WATCH OUR STORY</span>
-            </button>
           </div>
         </div>
 
@@ -199,23 +184,6 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           </div>
         </div>
       </div>
-
-      {/* Video Modal Player */}
-      {isVideoModalOpen && (
-        <div className="hero-modal-overlay" onClick={() => setIsVideoModalOpen(false)}>
-          <div className="hero-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-button" onClick={() => setIsVideoModalOpen(false)}>
-              <X size={22} />
-            </button>
-            <div className="modal-video-box">
-              <video autoPlay controls className="modal-actual-video">
-                <source src="/videos/gerte_an_vedio_ofa_moving_car.mp4" type="video/mp4" />
-                <source src="/videos/canguruber-hero-driving.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </div>
-        </div>
-      )}
 
       <style>{`
         .cinematic-real-video-hero {
