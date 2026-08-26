@@ -149,18 +149,24 @@ export const ScrollingCarJourney: React.FC = () => {
           border-top: 1px solid var(--border-light);
           border-bottom: 1px solid var(--border-light);
         }
+        @media (max-width: 768px) {
+          .scrolling-car-journey-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
         .journey-eyebrow {
           display: inline-block;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.825rem;
+          font-size: clamp(0.725rem, 2.5vw, 0.825rem);
           letter-spacing: 0.16em;
           color: #B28F00;
           margin-bottom: 0.5rem;
         }
         .journey-main-title {
           font-family: var(--font-display);
-          font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+          font-size: clamp(1.85rem, 6.5vw, 3.6rem);
           font-weight: 900;
           letter-spacing: -0.03em;
           line-height: 1.05;
@@ -171,10 +177,10 @@ export const ScrollingCarJourney: React.FC = () => {
           color: #CCA000;
         }
         .journey-subtitle {
-          font-size: 1.05rem;
+          font-size: clamp(0.925rem, 2.6vw, 1.05rem);
           color: var(--text-body);
           max-width: 680px;
-          margin: 0 auto 3rem auto;
+          margin: 0 auto 2.5rem auto;
         }
 
         /* Highway Interactive Box */
@@ -189,7 +195,8 @@ export const ScrollingCarJourney: React.FC = () => {
         }
         @media (max-width: 768px) {
           .highway-interactive-wrapper {
-            padding: 1.75rem;
+            padding: 1.25rem 1rem;
+            border-radius: var(--radius-lg);
           }
         }
 
@@ -198,13 +205,15 @@ export const ScrollingCarJourney: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 3rem;
+          margin-bottom: 2.5rem;
         }
         @media (max-width: 768px) {
           .stages-milestones-row {
             overflow-x: auto;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: flex-start;
+            padding-bottom: 0.75rem;
+            -webkit-overflow-scrolling: touch;
           }
         }
         .stage-step-btn {
@@ -219,7 +228,7 @@ export const ScrollingCarJourney: React.FC = () => {
         .stage-step-tag {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           letter-spacing: 0.14em;
           color: #94A3B8;
           transition: color 0.25s;
@@ -229,8 +238,8 @@ export const ScrollingCarJourney: React.FC = () => {
           font-weight: 900;
         }
         .stage-step-indicator {
-          width: 46px;
-          height: 46px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: #172833;
           border: 2px solid rgba(255, 255, 255, 0.25);
@@ -243,11 +252,18 @@ export const ScrollingCarJourney: React.FC = () => {
           color: #FFFFFF !important;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        @media (max-width: 640px) {
+          .stage-step-indicator {
+            width: 38px;
+            height: 38px;
+            font-size: 0.775rem;
+          }
+        }
         .stage-step-btn.selected .stage-step-indicator {
           background: #D2B04C !important;
           color: #07131D !important;
           border-color: #D2B04C !important;
-          transform: scale(1.18);
+          transform: scale(1.15);
           box-shadow: 0 0 25px rgba(210, 176, 76, 0.7);
         }
         .stage-step-btn.passed .stage-step-indicator {
@@ -259,14 +275,20 @@ export const ScrollingCarJourney: React.FC = () => {
         /* Asphalt Track */
         .journey-road-track {
           position: relative;
-          height: 110px;
+          height: 100px;
           background: #050B12;
           border-radius: var(--radius-md);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          margin-bottom: 3.5rem;
+          margin-bottom: 2.5rem;
           display: flex;
           align-items: center;
           overflow: hidden;
+        }
+        @media (max-width: 640px) {
+          .journey-road-track {
+            height: 80px;
+            margin-bottom: 1.75rem;
+          }
         }
         .track-road-video {
           position: absolute;
@@ -298,12 +320,12 @@ export const ScrollingCarJourney: React.FC = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 0.35rem;
+          gap: 0.25rem;
           z-index: 5;
         }
         .car-marker-box {
-          width: 54px;
-          height: 54px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           background: #D2B04C;
           color: #07131D;
@@ -312,6 +334,16 @@ export const ScrollingCarJourney: React.FC = () => {
           justify-content: center;
           box-shadow: 0 0 30px rgba(210, 176, 76, 0.7);
           position: relative;
+        }
+        @media (max-width: 640px) {
+          .car-marker-box {
+            width: 38px;
+            height: 38px;
+          }
+          .car-svg {
+            width: 20px;
+            height: 20px;
+          }
         }
         .car-pulsar {
           position: absolute;
@@ -327,10 +359,10 @@ export const ScrollingCarJourney: React.FC = () => {
         .car-stage-badge {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.65rem;
-          letter-spacing: 0.1em;
+          font-size: 0.6rem;
+          letter-spacing: 0.08em;
           background: rgba(7, 19, 29, 0.95);
-          padding: 0.2rem 0.65rem;
+          padding: 0.15rem 0.5rem;
           border-radius: var(--radius-full);
           color: #FFFFFF;
           border: 1px solid rgba(255, 255, 255, 0.2);
@@ -341,17 +373,23 @@ export const ScrollingCarJourney: React.FC = () => {
         .stage-spotlight-box {
           background: #0D1C27;
           border-radius: var(--radius-lg);
-          padding: 2.5rem;
+          padding: 2.25rem;
           border: 1px solid rgba(255, 255, 255, 0.15);
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
+          gap: 1.25rem;
+        }
+        @media (max-width: 768px) {
+          .stage-spotlight-box {
+            padding: 1.5rem 1.15rem;
+            border-radius: var(--radius-md);
+          }
         }
         .spotlight-stage-badge {
           display: inline-block;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.75rem;
+          font-size: 0.725rem;
           letter-spacing: 0.12em;
           color: #D2B04C;
           background: rgba(210, 176, 76, 0.12);
@@ -362,13 +400,13 @@ export const ScrollingCarJourney: React.FC = () => {
         }
         .spotlight-title {
           font-family: var(--font-display);
-          font-size: 2rem;
+          font-size: clamp(1.45rem, 5vw, 2rem);
           font-weight: 900;
           color: #FFFFFF !important;
           margin-bottom: 0.4rem;
         }
         .spotlight-desc {
-          font-size: 1.05rem;
+          font-size: clamp(0.9rem, 2.5vw, 1.025rem);
           color: #CBD5E1 !important;
           line-height: 1.6;
         }
@@ -376,13 +414,14 @@ export const ScrollingCarJourney: React.FC = () => {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 1.25rem;
-          padding: 1.5rem 0;
+          padding: 1.25rem 0;
           border-top: 1px solid rgba(255, 255, 255, 0.12);
           border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         }
         @media (max-width: 900px) {
           .spotlight-checklist {
             grid-template-columns: 1fr;
+            gap: 0.75rem;
           }
         }
         .check-row {
@@ -395,12 +434,18 @@ export const ScrollingCarJourney: React.FC = () => {
           flex-shrink: 0;
         }
         .check-text {
-          font-size: 0.925rem;
+          font-size: 0.885rem;
           font-weight: 600;
           color: #FFFFFF !important;
         }
         .spotlight-action {
           padding-top: 0.5rem;
+        }
+        @media (max-width: 640px) {
+          .spotlight-action .btn {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
     </section>

@@ -31,12 +31,12 @@ export const EditorialTestimonials: React.FC = () => {
             <h2 className="testimonials-headline">DRIVEN BY OUR STUDENTS.</h2>
           </div>
 
-          <div className="carousel-nav-buttons hide-mobile">
+          <div className="carousel-nav-buttons">
             <button onClick={prev} className="nav-arrow" aria-label="Previous testimonial">
-              <ChevronLeft size={22} />
+              <ChevronLeft size={20} />
             </button>
             <button onClick={next} className="nav-arrow" aria-label="Next testimonial">
-              <ChevronRight size={22} />
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
@@ -57,7 +57,7 @@ export const EditorialTestimonials: React.FC = () => {
           <div className="quote-top-strip">
             <div className="stars-cluster">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={22} className="star-yellow" fill="currentColor" />
+                <Star key={i} size={18} className="star-yellow" fill="currentColor" />
               ))}
             </div>
             <span className="pass-status-pill">{current.passStatus}</span>
@@ -98,18 +98,24 @@ export const EditorialTestimonials: React.FC = () => {
           border-top: 1px solid var(--border-light);
           border-bottom: 1px solid var(--border-light);
         }
+        @media (max-width: 768px) {
+          .editorial-testimonials-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
         .testimonials-eyebrow {
           display: inline-block;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.825rem;
+          font-size: clamp(0.725rem, 2.5vw, 0.825rem);
           letter-spacing: 0.16em;
           color: #B28F00;
           margin-bottom: 0.5rem;
         }
         .testimonials-headline {
           font-family: var(--font-display);
-          font-size: clamp(2rem, 3.8vw, 3.2rem);
+          font-size: clamp(1.75rem, 5.5vw, 3.2rem);
           font-weight: 900;
           letter-spacing: -0.035em;
           color: var(--canguruber-navy);
@@ -118,15 +124,16 @@ export const EditorialTestimonials: React.FC = () => {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          margin-bottom: 2.5rem;
+          margin-bottom: 2rem;
+          gap: 1rem;
         }
         .carousel-nav-buttons {
           display: flex;
-          gap: 0.75rem;
+          gap: 0.5rem;
         }
         .nav-arrow {
-          width: 50px;
-          height: 50px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: #0A1420;
           border: 1.5px solid rgba(255, 255, 255, 0.15);
@@ -135,6 +142,12 @@ export const EditorialTestimonials: React.FC = () => {
           justify-content: center;
           color: #FFFFFF;
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (max-width: 640px) {
+          .nav-arrow {
+            width: 38px;
+            height: 38px;
+          }
         }
         .nav-arrow:hover {
           background: var(--canguruber-yellow);
@@ -159,8 +172,9 @@ export const EditorialTestimonials: React.FC = () => {
         }
         @media (max-width: 768px) {
           .magazine-quote-card {
-            padding: 2rem 1.5rem;
-            min-height: 300px;
+            padding: 1.75rem 1.25rem;
+            min-height: auto;
+            border-radius: var(--radius-md);
           }
         }
 
@@ -188,9 +202,9 @@ export const EditorialTestimonials: React.FC = () => {
           inset: 0;
           background: linear-gradient(
             135deg, 
-            rgba(7, 19, 29, 0.94) 0%, 
-            rgba(7, 19, 29, 0.88) 50%, 
-            rgba(7, 19, 29, 0.72) 100%
+            rgba(7, 19, 29, 0.95) 0%, 
+            rgba(7, 19, 29, 0.9) 50%, 
+            rgba(7, 19, 29, 0.78) 100%
           );
         }
 
@@ -201,11 +215,13 @@ export const EditorialTestimonials: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.25rem;
+          flex-wrap: wrap;
+          gap: 0.65rem;
         }
         .stars-cluster {
           display: flex;
-          gap: 0.35rem;
+          gap: 0.25rem;
         }
         .star-yellow {
           color: #FFD000;
@@ -213,9 +229,9 @@ export const EditorialTestimonials: React.FC = () => {
         }
         .pass-status-pill {
           font-family: var(--font-display);
-          font-size: 0.775rem;
+          font-size: 0.75rem;
           font-weight: 800;
-          padding: 0.35rem 0.95rem;
+          padding: 0.3rem 0.85rem;
           background: rgba(255, 208, 0, 0.18);
           color: #FFD000;
           border: 1.5px solid #FFD000;
@@ -227,12 +243,12 @@ export const EditorialTestimonials: React.FC = () => {
           position: relative;
           z-index: 5;
           font-family: var(--font-display);
-          font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+          font-size: clamp(1.2rem, 3.8vw, 2.15rem);
           font-weight: 800;
           letter-spacing: -0.02em;
-          line-height: 1.35;
+          line-height: 1.4;
           color: #FFFFFF !important;
-          margin-bottom: 1.75rem;
+          margin-bottom: 1.5rem;
           text-shadow: 0 3px 15px rgba(0, 0, 0, 0.8);
         }
         .student-profile-footer {
@@ -240,35 +256,37 @@ export const EditorialTestimonials: React.FC = () => {
           z-index: 5;
           display: flex;
           align-items: center;
-          gap: 1.15rem;
-          padding-top: 2rem;
+          gap: 1rem;
+          padding-top: 1.5rem;
           border-top: 1px solid rgba(255, 255, 255, 0.15);
+          flex-wrap: wrap;
         }
         .student-avatar-box {
-          width: 54px;
-          height: 54px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           background: #FFD000;
           color: #07131D;
           font-family: var(--font-display);
           font-weight: 900;
-          font-size: 1.4rem;
+          font-size: 1.25rem;
           display: flex;
           align-items: center;
           justify-content: center;
           box-shadow: 0 4px 15px rgba(255, 208, 0, 0.4);
+          flex-shrink: 0;
         }
         .student-meta {
           display: flex;
           flex-direction: column;
         }
         .student-name {
-          font-size: 1.15rem;
+          font-size: 1.05rem;
           font-weight: 800;
           color: #FFFFFF !important;
         }
         .student-detail {
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           color: #CBD5E1 !important;
         }
 
@@ -276,7 +294,7 @@ export const EditorialTestimonials: React.FC = () => {
           display: flex;
           justify-content: center;
           gap: 0.6rem;
-          margin-top: 2rem;
+          margin-top: 1.75rem;
         }
         .t-dot {
           width: 10px;
@@ -286,7 +304,7 @@ export const EditorialTestimonials: React.FC = () => {
           transition: all 0.25s;
         }
         .t-dot.active {
-          width: 34px;
+          width: 32px;
           border-radius: 6px;
           background: #FFD000;
         }

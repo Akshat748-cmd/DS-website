@@ -201,7 +201,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
         @media (max-width: 768px) {
           .cinematic-real-video-hero {
             min-height: auto;
-            padding-top: 3.5rem;
+            padding-top: 2.25rem;
             padding-bottom: 2.5rem;
           }
         }
@@ -225,12 +225,17 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
         .hero-cinematic-vignette {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(7, 19, 29, 0.4) 0%, rgba(7, 19, 29, 0.05) 40%, rgba(7, 19, 29, 0.85) 100%);
+          background: linear-gradient(180deg, rgba(7, 19, 29, 0.45) 0%, rgba(7, 19, 29, 0.1) 40%, rgba(7, 19, 29, 0.9) 100%);
         }
         .hero-left-text-scrim {
           position: absolute;
           inset: 0;
-          background: linear-gradient(90deg, rgba(7, 19, 29, 0.95) 0%, rgba(7, 19, 29, 0.82) 40%, rgba(7, 19, 29, 0.25) 75%, rgba(7, 19, 29, 0.05) 100%);
+          background: linear-gradient(90deg, rgba(7, 19, 29, 0.96) 0%, rgba(7, 19, 29, 0.85) 45%, rgba(7, 19, 29, 0.3) 75%, rgba(7, 19, 29, 0.1) 100%);
+        }
+        @media (max-width: 768px) {
+          .hero-left-text-scrim {
+            background: linear-gradient(180deg, rgba(7, 19, 29, 0.92) 0%, rgba(7, 19, 29, 0.85) 55%, rgba(7, 19, 29, 0.96) 100%);
+          }
         }
         .hero-bottom-road-glow {
           position: absolute;
@@ -295,6 +300,11 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           flex-direction: column;
           justify-content: space-between;
         }
+        @media (max-width: 768px) {
+          .hero-editorial-container {
+            min-height: auto;
+          }
+        }
         .hero-main-column {
           max-width: 820px;
           padding-top: 1rem;
@@ -305,10 +315,11 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           display: inline-flex;
           align-items: center;
           gap: 0.6rem;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.15rem;
           opacity: 0;
           transform: translateY(12px);
           transition: opacity 0.5s ease, transform 0.5s ease;
+          flex-wrap: wrap;
         }
         .hero-eyebrow-wrapper.revealed {
           opacity: 1;
@@ -317,7 +328,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
         .hero-gold-tag {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.85rem;
+          font-size: clamp(0.725rem, 2.8vw, 0.85rem);
           letter-spacing: 0.18em;
           color: var(--accent-gold);
         }
@@ -327,7 +338,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
         .hero-sub-tag {
           font-family: var(--font-display);
           font-weight: 700;
-          font-size: 0.775rem;
+          font-size: clamp(0.68rem, 2.5vw, 0.775rem);
           letter-spacing: 0.1em;
           color: #9BB0C1;
         }
@@ -344,9 +355,9 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           font-family: var(--font-display);
           font-style: italic;
           font-weight: 900;
-          font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+          font-size: clamp(1.85rem, 6.8vw, 4.2rem);
           letter-spacing: -0.025em;
-          line-height: 0.96;
+          line-height: 0.98;
           text-transform: uppercase;
           color: #FFFFFF;
           text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
@@ -372,7 +383,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           font-family: var(--font-display);
           font-style: italic;
           font-weight: 900;
-          font-size: clamp(1.8rem, 3.8vw, 3.4rem);
+          font-size: clamp(1.55rem, 5.8vw, 3.4rem);
           letter-spacing: 0.02em;
           color: var(--accent-gold);
           line-height: 1.05;
@@ -391,7 +402,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
 
         /* Narrative paragraph */
         .hero-lead-narrative {
-          font-size: 1rem;
+          font-size: clamp(0.925rem, 2.6vw, 1.025rem);
           color: #D3E0EA;
           line-height: 1.6;
           max-width: 580px;
@@ -422,45 +433,23 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           opacity: 1;
           transform: translateY(0);
         }
-
-        .hero-watch-story-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          color: #FFFFFF;
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: 0.8rem;
-          letter-spacing: 0.05em;
-          transition: transform 0.2s ease, color 0.2s ease;
-          padding: 0.4rem 0.6rem;
-        }
-        .hero-watch-story-btn:hover {
-          color: var(--accent-gold);
-          transform: translateX(3px);
-        }
-        .play-ring-icon {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          border: 1.5px solid rgba(255, 255, 255, 0.45);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #FFFFFF;
-          background: rgba(7, 19, 29, 0.5);
-          backdrop-filter: blur(6px);
-          transition: all 0.2s ease;
-        }
-        .hero-watch-story-btn:hover .play-ring-icon {
-          border-color: var(--accent-gold);
-          color: var(--accent-gold);
-          background: rgba(201, 168, 78, 0.2);
+        @media (max-width: 640px) {
+          .hero-ctas-action-row {
+            flex-direction: column;
+            width: 100%;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+          }
+          .hero-ctas-action-row .btn,
+          .hero-ctas-action-row button {
+            width: 100%;
+            justify-content: center;
+          }
         }
 
         /* Floating Trust Strip */
         .hero-floating-trust-strip {
-          background: rgba(13, 28, 39, 0.85);
+          background: rgba(13, 28, 39, 0.9);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border: 1px solid rgba(255, 255, 255, 0.12);
@@ -494,7 +483,9 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
         @media (max-width: 640px) {
           .hero-floating-trust-strip {
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 0.85rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
           }
         }
 
@@ -524,7 +515,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
         .trust-heading {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.95rem;
+          font-size: 0.925rem;
           color: #FFFFFF;
           line-height: 1.15;
         }
@@ -549,7 +540,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2rem;
+          padding: 1.5rem;
         }
         .hero-modal-content {
           background: #07131D;
@@ -557,7 +548,7 @@ export const MovingCarHero: React.FC<MovingCarHeroProps> = ({ onHeroReady }) => 
           border: 1px solid rgba(255, 255, 255, 0.15);
           width: 100%;
           max-width: 820px;
-          padding: 1.5rem;
+          padding: 1.25rem;
           position: relative;
         }
         .modal-close-button {

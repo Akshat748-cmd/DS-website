@@ -65,7 +65,7 @@ export const RunningCarVisual: React.FC = () => {
           position: relative;
           width: 100%;
           height: 100%;
-          min-height: 480px;
+          min-height: 440px;
           border-radius: var(--radius-xl);
           overflow: hidden;
           background: #050B12;
@@ -73,7 +73,13 @@ export const RunningCarVisual: React.FC = () => {
         }
         @media (max-width: 960px) {
           .running-car-stage {
-            min-height: 380px;
+            min-height: 320px;
+            border-radius: var(--radius-lg);
+          }
+        }
+        @media (max-width: 600px) {
+          .running-car-stage {
+            min-height: 280px;
           }
         }
         .running-car-viewport {
@@ -118,32 +124,37 @@ export const RunningCarVisual: React.FC = () => {
         .car-hud-overlay {
           position: absolute;
           inset: 0;
-          padding: 1.5rem;
+          padding: 1.25rem;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           pointer-events: none;
           z-index: 10;
         }
+        @media (max-width: 600px) {
+          .car-hud-overlay {
+            padding: 0.75rem;
+          }
+        }
         .hud-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.4rem;
           background: rgba(10, 20, 32, 0.85);
           backdrop-filter: blur(8px);
           border: 1px solid rgba(255, 255, 255, 0.15);
           color: #FFFFFF;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.75rem;
-          letter-spacing: 0.1em;
-          padding: 0.35rem 0.85rem;
+          font-size: 0.7rem;
+          letter-spacing: 0.08em;
+          padding: 0.25rem 0.65rem;
           border-radius: var(--radius-full);
           width: fit-content;
         }
         .live-pulsar-dot {
-          width: 8px;
-          height: 8px;
+          width: 7px;
+          height: 7px;
           border-radius: 50%;
           background: #22C55E;
           box-shadow: 0 0 10px #22C55E;
@@ -158,54 +169,60 @@ export const RunningCarVisual: React.FC = () => {
         .hud-bottom-telemetry {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 0.5rem;
           flex-wrap: wrap;
         }
         .hud-chip {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.35rem;
           background: rgba(10, 20, 32, 0.85);
           backdrop-filter: blur(8px);
           border: 1px solid rgba(255, 255, 255, 0.15);
           color: #FFFFFF;
           font-family: var(--font-display);
           font-weight: 700;
-          font-size: 0.725rem;
-          letter-spacing: 0.05em;
-          padding: 0.35rem 0.75rem;
+          font-size: 0.68rem;
+          letter-spacing: 0.04em;
+          padding: 0.25rem 0.6rem;
           border-radius: var(--radius-full);
         }
         .hud-icon-gold {
-          color: var(--canguruber-yellow);
+          color: var(--accent-gold);
         }
 
         /* Playback toggle */
         .playback-toggle-btn {
           position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
+          top: 1.25rem;
+          right: 1.25rem;
           z-index: 20;
           display: inline-flex;
           align-items: center;
-          gap: 0.45rem;
+          gap: 0.35rem;
           background: rgba(10, 20, 32, 0.85);
           backdrop-filter: blur(8px);
           border: 1px solid rgba(255, 255, 255, 0.2);
           color: #FFFFFF;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.7rem;
-          letter-spacing: 0.08em;
-          padding: 0.35rem 0.85rem;
+          font-size: 0.65rem;
+          letter-spacing: 0.06em;
+          padding: 0.25rem 0.65rem;
           border-radius: var(--radius-full);
           transition: all 0.2s ease;
           cursor: pointer;
         }
+        @media (max-width: 600px) {
+          .playback-toggle-btn {
+            top: 0.75rem;
+            right: 0.75rem;
+          }
+        }
         .playback-toggle-btn:hover {
-          background: var(--canguruber-yellow);
+          background: var(--accent-gold);
           color: #0A1420;
-          border-color: var(--canguruber-yellow);
+          border-color: var(--accent-gold);
         }
       `}</style>
     </div>

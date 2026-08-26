@@ -262,7 +262,8 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
 
       <style>{`
         .canguruber-exact-homepage {
-          background-color: var(--bg-page);
+          background-color: var(--bg-warm-white);
+          overflow-x: hidden;
         }
 
         /* ============================================================
@@ -272,11 +273,25 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
           background-color: #FFFFFF;
           border-bottom: 1px solid var(--border-light);
         }
+        @media (max-width: 768px) {
+          .exact-services-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
         .services-exact-header-row {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          margin-bottom: 2.75rem;
+          margin-bottom: 2.5rem;
+          gap: 1rem;
+        }
+        @media (max-width: 768px) {
+          .services-exact-header-row {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 1.75rem;
+          }
         }
         .yellow-eyebrow-line {
           display: flex;
@@ -290,7 +305,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         .eyebrow-text {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.85rem;
+          font-size: clamp(0.725rem, 2.5vw, 0.85rem);
           letter-spacing: 0.16em;
           color: var(--accent-gold);
         }
@@ -300,7 +315,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         }
         .services-exact-headline {
           font-family: var(--font-display);
-          font-size: clamp(1.75rem, 3vw, 2.5rem);
+          font-size: clamp(1.75rem, 4.8vw, 2.5rem);
           font-weight: 900;
           letter-spacing: -0.03em;
           line-height: 1.08;
@@ -350,14 +365,19 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         .card-image-box {
           position: relative;
           width: 100%;
-          height: 310px;
+          height: 300px;
           border-radius: var(--radius-md);
           overflow: hidden;
           box-shadow: 0 8px 24px rgba(10, 20, 32, 0.08);
           transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
         }
+        @media (max-width: 640px) {
+          .card-image-box {
+            height: 240px;
+          }
+        }
         .exact-service-card-item:hover .card-image-box {
-          transform: translateY(-8px);
+          transform: translateY(-6px);
           box-shadow: 0 20px 45px rgba(10, 20, 32, 0.16);
         }
         .card-photo {
@@ -372,7 +392,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         .card-dark-gradient-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.2) 40%, rgba(10, 20, 32, 0.92) 100%);
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 40%, rgba(10, 20, 32, 0.92) 100%);
         }
 
         /* Top 01 Number Badge */
@@ -393,9 +413,9 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         /* Bottom Info */
         .bottom-card-info {
           position: absolute;
-          bottom: 1.5rem;
-          left: 1.5rem;
-          right: 1.5rem;
+          bottom: 1.25rem;
+          left: 1.25rem;
+          right: 1.25rem;
           z-index: 5;
           display: flex;
           align-items: center;
@@ -403,7 +423,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         }
         .card-bold-title {
           font-family: var(--font-display);
-          font-size: 1.35rem;
+          font-size: clamp(1.15rem, 3.5vw, 1.35rem);
           font-weight: 900;
           letter-spacing: 0.04em;
           color: #FFFFFF;
@@ -418,7 +438,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
           font-size: 0.75rem;
           text-transform: uppercase;
           letter-spacing: 0.08em;
-          color: var(--canguruber-yellow);
+          color: var(--accent-gold);
           opacity: 0.9;
           transition: transform 0.2s ease;
         }
@@ -428,9 +448,10 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         }
 
         .services-all-cta-bar {
-          margin-top: 3rem;
+          margin-top: 2.5rem;
           display: flex;
           justify-content: center;
+          text-align: center;
         }
         .compare-packages-link {
           display: inline-flex;
@@ -438,7 +459,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
           gap: 0.5rem;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.95rem;
+          font-size: 0.925rem;
           color: var(--canguruber-navy);
           text-decoration: underline;
           transition: color 0.2s;
@@ -448,6 +469,15 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         }
 
         /* Editorial Test Prep */
+        .editorial-testprep-section {
+          background-color: var(--bg-warm-white);
+        }
+        @media (max-width: 768px) {
+          .editorial-testprep-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
         .testprep-editorial-grid {
           display: grid;
           grid-template-columns: 1.1fr 0.9fr;
@@ -460,49 +490,52 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         @media (max-width: 960px) {
           .testprep-editorial-grid {
             grid-template-columns: 1fr;
+            border-radius: var(--radius-lg);
           }
         }
         .testprep-text-side {
           padding: 4rem 3.5rem;
         }
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .testprep-text-side {
-            padding: 2rem 1.5rem;
+            padding: 2.25rem 1.25rem;
           }
         }
         .editorial-title {
-          font-size: clamp(2.2rem, 4vw, 3.4rem);
+          font-size: clamp(1.85rem, 5.5vw, 3.4rem);
           font-weight: 900;
           letter-spacing: -0.035em;
           color: var(--canguruber-navy);
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.15rem;
+          line-height: 1.05;
         }
         .editorial-desc {
-          font-size: 1.05rem;
+          font-size: 0.975rem;
           color: var(--text-body);
           line-height: 1.6;
-          margin-bottom: 2rem;
+          margin-bottom: 1.75rem;
         }
         .testprep-check-chips {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 0.85rem;
-          margin-bottom: 2.5rem;
+          gap: 0.75rem;
+          margin-bottom: 2rem;
         }
         @media (max-width: 600px) {
           .testprep-check-chips {
             grid-template-columns: 1fr;
+            gap: 0.55rem;
           }
         }
         .chip-item {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          font-size: 0.85rem;
+          font-size: 0.825rem;
           font-weight: 700;
           color: var(--canguruber-navy);
-          background: var(--bg-page);
-          padding: 0.5rem 0.85rem;
+          background: var(--bg-warm-white);
+          padding: 0.5rem 0.75rem;
           border-radius: var(--radius-md);
         }
         .chk-gold {
@@ -511,21 +544,52 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
         }
         .testprep-visual-side {
           height: 100%;
-          min-height: 480px;
+          min-height: 440px;
           background: #EAE8DE;
         }
-        .testprep-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+        @media (max-width: 960px) {
+          .testprep-visual-side {
+            min-height: 280px;
+          }
+        }
+        @media (max-width: 640px) {
+          .testprep-text-side .btn {
+            width: 100%;
+            justify-content: center;
+          }
         }
 
         /* Why Pillars */
+        .why-canguruber-section {
+          background-color: #FFFFFF;
+          border-top: 1px solid var(--border-light);
+        }
+        @media (max-width: 768px) {
+          .why-canguruber-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
+        .section-title {
+          font-size: clamp(1.85rem, 5vw, 3rem);
+          font-weight: 900;
+          letter-spacing: -0.03em;
+          color: var(--canguruber-navy);
+          line-height: 1.05;
+          margin-bottom: 0.75rem;
+        }
+        .section-subtitle {
+          font-size: clamp(0.925rem, 2.5vw, 1.05rem);
+          color: var(--text-body);
+          max-width: 640px;
+          margin: 0 auto;
+          line-height: 1.55;
+        }
         .why-pillars-grid {
           margin-top: 2.5rem;
         }
         .why-pillar-card {
-          background: #FFFFFF;
+          background: var(--bg-warm-white);
           border-radius: var(--radius-lg);
           padding: 2.25rem 1.75rem;
           display: flex;
@@ -533,29 +597,45 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
           align-items: flex-start;
           transition: transform 0.3s ease;
         }
+        @media (max-width: 640px) {
+          .why-pillar-card {
+            padding: 1.75rem 1.25rem;
+          }
+        }
         .why-pillar-card:hover {
-          transform: translateY(-6px);
-          border-color: var(--canguruber-yellow);
+          transform: translateY(-4px);
+          border-color: var(--accent-gold);
         }
         .pillar-large-num {
           font-family: var(--font-display);
           font-weight: 900;
-          font-size: 2.4rem;
-          color: var(--canguruber-yellow);
+          font-size: 2.2rem;
+          color: var(--accent-gold);
           line-height: 1;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1rem;
         }
         .pillar-title {
-          font-size: 1.15rem;
+          font-size: 1.1rem;
           font-weight: 900;
           letter-spacing: -0.01em;
-          margin-bottom: 0.65rem;
+          margin-bottom: 0.5rem;
           color: var(--canguruber-navy);
         }
         .pillar-desc {
-          font-size: 0.9rem;
+          font-size: 0.885rem;
           color: var(--text-body);
           line-height: 1.55;
+        }
+
+        .canguruber-blog-section {
+          background-color: #FFFFFF;
+          border-top: 1px solid var(--border-light);
+        }
+        @media (max-width: 768px) {
+          .canguruber-blog-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
         }
       `}</style>
     </div>

@@ -51,6 +51,12 @@ export const CinematicFinalCTA: React.FC = () => {
           padding-top: 4rem;
           padding-bottom: 5rem;
         }
+        @media (max-width: 768px) {
+          .cinematic-final-cta-section {
+            padding-top: 2.5rem;
+            padding-bottom: 3rem;
+          }
+        }
         .final-experience-stage {
           background: #0A1420;
           border: 1px solid rgba(255, 255, 255, 0.12);
@@ -62,7 +68,8 @@ export const CinematicFinalCTA: React.FC = () => {
         }
         @media (max-width: 768px) {
           .final-experience-stage {
-            padding: 2.75rem 1.25rem;
+            padding: 2.5rem 1.25rem;
+            border-radius: var(--radius-md);
           }
         }
         .final-road-perspective {
@@ -75,6 +82,13 @@ export const CinematicFinalCTA: React.FC = () => {
           clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
           border-top: 1px solid rgba(255, 208, 0, 0.25);
           pointer-events: none;
+        }
+        @media (max-width: 640px) {
+          .final-road-perspective {
+            left: 5%;
+            right: 5%;
+            height: 65%;
+          }
         }
         .horizon-traveling-car {
           position: absolute;
@@ -104,7 +118,7 @@ export const CinematicFinalCTA: React.FC = () => {
           display: inline-block;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.75rem;
+          font-size: clamp(0.68rem, 2.4vw, 0.75rem);
           letter-spacing: 0.16em;
           color: var(--accent-gold);
           background: rgba(210, 176, 76, 0.12);
@@ -115,54 +129,66 @@ export const CinematicFinalCTA: React.FC = () => {
         }
         .final-mega-headline {
           font-family: var(--font-display);
-          font-size: clamp(2rem, 3.8vw, 3.4rem);
+          font-size: clamp(1.85rem, 6.5vw, 3.4rem);
           font-weight: 900;
           letter-spacing: -0.035em;
-          line-height: 1;
+          line-height: 1.05;
           color: #FFFFFF !important;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.15rem;
         }
         .text-yellow-glow {
           color: var(--accent-gold);
           text-shadow: 0 0 35px rgba(210, 176, 76, 0.5);
         }
         .final-lead-copy {
-          font-size: 1.05rem;
+          font-size: clamp(0.925rem, 2.5vw, 1.05rem);
           color: #CBD5E1 !important;
           line-height: 1.6;
           max-width: 620px;
-          margin-bottom: 2.25rem;
+          margin-bottom: 2rem;
         }
         .final-actions-row {
           display: flex;
           align-items: center;
           gap: 1.25rem;
-          margin-bottom: 3.5rem;
+          margin-bottom: 3rem;
           flex-wrap: wrap;
           justify-content: center;
+          width: 100%;
+        }
+        @media (max-width: 640px) {
+          .final-actions-row {
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2.25rem;
+          }
+          .final-actions-row .btn {
+            width: 100%;
+            justify-content: center;
+          }
         }
         .final-brand-signature {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 0.25rem;
-          padding-top: 2rem;
+          padding-top: 1.75rem;
           border-top: 1px solid rgba(255, 255, 255, 0.12);
         }
         .sig-main {
           font-family: var(--font-display);
           font-weight: 900;
-          font-size: 1.5rem;
+          font-size: 1.4rem;
           letter-spacing: 0.15em;
           color: #FFFFFF;
         }
         .sig-yellow {
-          color: var(--canguruber-yellow);
+          color: var(--accent-gold);
         }
         .sig-sub {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           letter-spacing: 0.25em;
-          color: var(--canguruber-yellow);
+          color: var(--accent-gold);
           font-weight: 800;
         }
       `}</style>

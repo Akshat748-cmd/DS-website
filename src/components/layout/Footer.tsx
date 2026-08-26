@@ -186,16 +186,16 @@ export const Footer: React.FC = () => {
           position: relative;
           background-color: #07131D !important;
           color: #FFFFFF !important;
-          padding-top: 7.5rem;
-          padding-bottom: 5rem;
+          padding-top: 6rem;
+          padding-bottom: 4rem;
           border-top: 1px solid rgba(210, 176, 76, 0.2);
           box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.4);
           z-index: 20;
         }
         @media (max-width: 768px) {
           .automotive-outro-footer {
-            padding-top: 5rem;
-            padding-bottom: 3.5rem;
+            padding-top: 3.5rem;
+            padding-bottom: 2.5rem;
           }
         }
 
@@ -211,7 +211,12 @@ export const Footer: React.FC = () => {
         .footer-outro-layout {
           display: flex;
           flex-direction: column;
-          gap: 4.5rem;
+          gap: 3.5rem;
+        }
+        @media (max-width: 768px) {
+          .footer-outro-layout {
+            gap: 2.5rem;
+          }
         }
 
         /* Top Brand Row */
@@ -219,20 +224,20 @@ export const Footer: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding-bottom: 3.5rem;
+          padding-bottom: 2.5rem;
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           flex-wrap: wrap;
-          gap: 2rem;
+          gap: 1.5rem;
         }
         .brand-outro-logo {
           display: flex;
           flex-direction: column;
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.5rem;
         }
         .brand-outro-main {
           font-family: var(--font-display);
           font-weight: 900;
-          font-size: 2.2rem;
+          font-size: clamp(1.6rem, 5vw, 2.2rem);
           letter-spacing: 0.04em;
           color: #FFFFFF;
           line-height: 1;
@@ -242,14 +247,14 @@ export const Footer: React.FC = () => {
         }
         .brand-outro-sub {
           font-family: var(--font-display);
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-weight: 800;
           letter-spacing: 0.22em;
           color: var(--accent-gold);
           margin-top: 4px;
         }
         .brand-outro-tagline {
-          font-size: 0.95rem;
+          font-size: 0.925rem;
           color: #9BB0C1;
           max-width: 520px;
           line-height: 1.55;
@@ -261,8 +266,9 @@ export const Footer: React.FC = () => {
           gap: 1rem;
           background: rgba(13, 28, 39, 0.8);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          padding: 1rem 1.75rem;
+          padding: 0.85rem 1.35rem;
           border-radius: var(--radius-lg);
+          max-width: 100%;
         }
         .gold-icon-outro {
           color: var(--accent-gold);
@@ -271,12 +277,12 @@ export const Footer: React.FC = () => {
         .acc-title {
           display: block;
           font-family: var(--font-display);
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           font-weight: 800;
           color: #FFFFFF;
         }
         .acc-sub {
-          font-size: 0.775rem;
+          font-size: 0.75rem;
           color: #9BB0C1;
         }
 
@@ -284,42 +290,42 @@ export const Footer: React.FC = () => {
         .footer-directory-grid {
           display: grid;
           grid-template-columns: 1fr 1fr 1.2fr 1.2fr;
-          gap: 3rem;
+          gap: 2.5rem;
         }
         @media (max-width: 1024px) {
           .footer-directory-grid {
             grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
+            gap: 2rem;
           }
         }
         @media (max-width: 640px) {
           .footer-directory-grid {
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 1.75rem;
           }
         }
 
         .col-eyebrow {
           display: block;
           font-family: var(--font-display);
-          font-size: 0.85rem;
+          font-size: 0.825rem;
           font-weight: 900;
           letter-spacing: 0.15em;
           color: var(--accent-gold);
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.15rem;
         }
 
         .directory-links-list {
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 0.85rem;
+          gap: 0.75rem;
         }
         .directory-link {
           display: inline-flex;
           align-items: center;
           justify-content: space-between;
-          font-size: 0.925rem;
+          font-size: 0.9rem;
           color: #CBD5E1;
           transition: all 0.2s ease;
         }
@@ -349,13 +355,13 @@ export const Footer: React.FC = () => {
         .contact-outro-card {
           display: flex;
           flex-direction: column;
-          gap: 0.85rem;
+          gap: 0.75rem;
         }
         .contact-item {
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          font-size: 0.9rem;
+          font-size: 0.885rem;
           color: #CBD5E1;
         }
         .contact-text-link {
@@ -369,11 +375,11 @@ export const Footer: React.FC = () => {
         .social-pill-buttons {
           display: flex;
           gap: 0.75rem;
-          margin-top: 1rem;
+          margin-top: 0.75rem;
         }
         .social-circle {
-          width: 38px;
-          height: 38px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           background: rgba(13, 28, 39, 0.9);
           border: 1px solid rgba(255, 255, 255, 0.15);
@@ -395,22 +401,23 @@ export const Footer: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding-top: 2.5rem;
+          padding-top: 2rem;
           border-top: 1px solid rgba(255, 255, 255, 0.1);
           flex-wrap: wrap;
-          gap: 1.25rem;
+          gap: 1rem;
         }
         .copyright-outro-text {
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           color: #9BB0C1;
         }
         .legal-outro-links {
           display: flex;
           align-items: center;
           gap: 0.85rem;
+          flex-wrap: wrap;
         }
         .legal-outro-link {
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           color: #9BB0C1;
           transition: color 0.2s;
         }

@@ -103,6 +103,12 @@ export const AbstractMapLocations: React.FC = () => {
         .abstract-map-section {
           background-color: #FFFFFF;
         }
+        @media (max-width: 768px) {
+          .abstract-map-section {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+        }
         .map-interface-grid {
           background: #FFFFFF;
           border-radius: var(--radius-xl);
@@ -115,16 +121,24 @@ export const AbstractMapLocations: React.FC = () => {
         @media (max-width: 960px) {
           .map-interface-grid {
             grid-template-columns: 1fr;
-            padding: 1.5rem;
+            padding: 1.25rem 1rem;
+            gap: 2rem;
+            border-radius: var(--radius-lg);
           }
         }
         .abstract-map-canvas {
           position: relative;
-          height: 420px;
+          height: 400px;
           border-radius: var(--radius-lg);
-          background: var(--bg-surface-alt);
+          background: var(--bg-warm-white);
           overflow: hidden;
           border: 1px solid var(--border-light);
+        }
+        @media (max-width: 640px) {
+          .abstract-map-canvas {
+            height: 270px;
+            border-radius: var(--radius-md);
+          }
         }
         .roads-svg-layer {
           width: 100%;
@@ -143,8 +157,8 @@ export const AbstractMapLocations: React.FC = () => {
           z-index: 5;
         }
         .node-pin-core {
-          width: 38px;
-          height: 38px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           background: #FFFFFF;
           border: 2px solid var(--text-primary);
@@ -152,29 +166,36 @@ export const AbstractMapLocations: React.FC = () => {
           align-items: center;
           justify-content: center;
           color: var(--text-primary);
-          box-shadow: var(--shadow-card);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
           transition: all 0.25s var(--ease-cinematic);
         }
+        @media (max-width: 640px) {
+          .node-pin-core {
+            width: 30px;
+            height: 30px;
+          }
+        }
         .map-node-pin.active .node-pin-core {
-          background: var(--accent-lime);
-          transform: scale(1.2);
-          box-shadow: 0 0 0 6px rgba(216, 243, 106, 0.4);
+          background: var(--accent-gold);
+          transform: scale(1.15);
+          box-shadow: 0 0 0 6px rgba(210, 176, 76, 0.4);
         }
         .node-badge-text {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.7rem;
+          font-size: 0.65rem;
           background: rgba(16, 24, 32, 0.85);
           color: #FFFFFF;
-          padding: 0.15rem 0.5rem;
+          padding: 0.12rem 0.45rem;
           border-radius: var(--radius-full);
+          letter-spacing: 0.04em;
         }
         .node-pulse-ring {
           position: absolute;
-          width: 48px;
-          height: 48px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background: rgba(216, 243, 106, 0.4);
+          background: rgba(210, 176, 76, 0.4);
           animation: ringPulse 2s infinite ease-out;
           pointer-events: none;
         }
@@ -184,16 +205,17 @@ export const AbstractMapLocations: React.FC = () => {
         }
         .map-legend-card {
           position: absolute;
-          bottom: 16px;
-          left: 16px;
-          background: rgba(255, 255, 255, 0.92);
+          bottom: 12px;
+          left: 12px;
+          background: rgba(255, 255, 255, 0.94);
           backdrop-filter: blur(8px);
-          padding: 0.5rem 0.85rem;
+          padding: 0.4rem 0.75rem;
           border-radius: var(--radius-sm);
           display: flex;
           flex-direction: column;
-          font-size: 0.7rem;
+          font-size: 0.65rem;
           font-weight: 700;
+          border: 1px solid var(--border-light);
         }
         .legend-title {
           color: var(--text-primary);
@@ -207,43 +229,53 @@ export const AbstractMapLocations: React.FC = () => {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
+          width: 100%;
         }
         .loc-panel-top {
           display: flex;
           gap: 0.5rem;
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
         }
         .loc-panel-title {
-          font-size: 1.85rem;
+          font-size: clamp(1.4rem, 4vw, 1.85rem);
           font-weight: 900;
           letter-spacing: -0.02em;
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.6rem;
           color: var(--text-primary);
         }
         .loc-panel-desc {
-          font-size: 1rem;
+          font-size: 0.95rem;
           color: var(--text-secondary);
-          line-height: 1.6;
-          margin-bottom: 1.75rem;
+          line-height: 1.55;
+          margin-bottom: 1.5rem;
         }
         .loc-route-features {
           display: flex;
           flex-direction: column;
-          gap: 0.65rem;
-          margin-bottom: 2rem;
+          gap: 0.6rem;
+          margin-bottom: 1.75rem;
           width: 100%;
         }
         .feature-item {
           display: flex;
           align-items: center;
           gap: 0.6rem;
-          font-size: 0.875rem;
+          font-size: 0.85rem;
           font-weight: 600;
           color: var(--text-primary);
         }
         .chk-green {
           color: #16A34A;
           flex-shrink: 0;
+        }
+        .loc-actions {
+          width: 100%;
+        }
+        @media (max-width: 640px) {
+          .loc-actions .btn {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
     </section>

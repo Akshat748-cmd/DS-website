@@ -91,8 +91,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
 
             {/* Exact Right Action Buttons from Screenshot */}
             <div className="header-right-actions">
-              <Button to="/book" variant="yellow" size="sm" icon={<ArrowRight size={15} />}>
-                BOOK A LESSON
+              <Button to="/book" variant="yellow" size="sm" icon={<ArrowRight size={14} />} className="header-book-btn">
+                <span className="btn-text-full">BOOK A LESSON</span>
+                <span className="btn-text-short">BOOK</span>
               </Button>
 
               {/* Exact Dark Circular Menu Toggle */}
@@ -101,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
                 aria-label="Toggle navigation menu"
               >
-                {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+                {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </nav>
@@ -110,17 +111,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
 
       {/* Slide-out Menu Drawer */}
       {isMobileOpen && (
-        <div className="header-drawer-overlay">
-          <div className="header-drawer-panel">
+        <div className="header-drawer-overlay" onClick={() => setIsMobileOpen(false)}>
+          <div className="header-drawer-panel" onClick={(e) => e.stopPropagation()}>
             <div className="drawer-top">
               <Link to="/" className="brand-logo-exact" onClick={() => setIsMobileOpen(false)}>
-                <span className="logo-main">
-                  CANGURU<span className="logo-highlight">BER</span>
-                </span>
-                <span className="logo-sub">DRIVING SCHOOL</span>
+                <div className="logo-text-wrap">
+                  <span className="logo-main">
+                    CANGURU<span className="logo-highlight">BER</span>
+                  </span>
+                  <span className="logo-sub">DRIVING SCHOOL</span>
+                </div>
               </Link>
-              <button className="close-btn" onClick={() => setIsMobileOpen(false)}>
-                <X size={22} />
+              <button className="close-btn" onClick={() => setIsMobileOpen(false)} aria-label="Close menu">
+                <X size={20} />
               </button>
             </div>
 
@@ -137,6 +140,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
               </Link>
               <Link to="/lesson-and-car" className="drawer-sub-item" onClick={() => setIsMobileOpen(false)}>
                 — Lesson + Car Package
+              </Link>
+              <Link to="/test-preparation" className="drawer-sub-item" onClick={() => setIsMobileOpen(false)}>
+                — Test Preparation
               </Link>
               <Link to="/about" className="drawer-nav-item" onClick={() => setIsMobileOpen(false)}>
                 <span>ABOUT</span>
@@ -193,6 +199,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           align-items: center;
           justify-content: space-between;
           height: 64px;
+          gap: 1rem;
+        }
+        @media (max-width: 640px) {
+          .header-nav-row {
+            height: 58px;
+          }
         }
 
         /* Exact Logo */
@@ -200,6 +212,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           display: flex;
           align-items: center;
           text-decoration: none;
+          flex-shrink: 0;
         }
         .logo-text-wrap {
           display: flex;
@@ -208,7 +221,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
         .logo-main {
           font-family: var(--font-display);
           font-weight: 900;
-          font-size: 1.35rem;
+          font-size: clamp(1.15rem, 4vw, 1.35rem);
           letter-spacing: 0.02em;
           color: #07131D;
           line-height: 1;
@@ -218,9 +231,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
         }
         .logo-sub {
           font-family: var(--font-display);
-          font-size: 0.6rem;
+          font-size: 0.58rem;
           font-weight: 800;
-          letter-spacing: 0.2em;
+          letter-spacing: 0.18em;
           color: #07131D;
           margin-top: 2px;
         }
@@ -314,22 +327,45 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
         .header-right-actions {
           display: flex;
           align-items: center;
-          gap: 0.85rem;
+          gap: 0.6rem;
+          flex-shrink: 0;
+        }
+        .btn-text-short {
+          display: none;
+        }
+        @media (max-width: 640px) {
+          .btn-text-full {
+            display: none;
+          }
+          .btn-text-short {
+            display: inline;
+          }
+          .header-book-btn {
+            padding: 0.45rem 0.85rem !important;
+            font-size: 0.75rem !important;
+          }
         }
         .dark-circle-menu-btn {
-          width: 44px;
-          height: 44px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
-          background: var(--canguruber-navy);
+          background: #07131D;
           color: #FFFFFF;
           display: flex;
           align-items: center;
           justify-content: center;
           transition: background 0.2s ease, transform 0.2s ease;
+          flex-shrink: 0;
         }
         .dark-circle-menu-btn:hover {
           background: #1E2D3D;
           transform: scale(1.05);
+        }
+        @media (max-width: 640px) {
+          .dark-circle-menu-btn {
+            width: 36px;
+            height: 36px;
+          }
         }
 
         /* Mobile Drawer */
@@ -339,11 +375,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(10, 20, 32, 0.7);
+          background: rgba(10, 20, 32, 0.75);
           backdrop-filter: blur(6px);
-          z-index: 300;
+          -webkit-backdrop-filter: blur(6px);
+          z-index: 9999;
           display: flex;
           justify-content: flex-end;
+          animation: drawerBackdrop 0.25s ease;
+        }
+        @keyframes drawerBackdrop {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
         .header-drawer-panel {
           width: 85%;
@@ -352,8 +394,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           height: 100%;
           display: flex;
           flex-direction: column;
-          padding: 1.75rem;
-          box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+          padding: 1.5rem 1.25rem;
+          box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+          overflow-y: auto;
+          animation: slideDrawer 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideDrawer {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
         }
         .drawer-top {
           display: flex;
@@ -363,38 +411,50 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           border-bottom: 1px solid var(--border-light);
         }
         .close-btn {
-          width: 36px;
-          height: 36px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
-          background: var(--bg-subtle);
+          background: var(--bg-warm-white);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--canguruber-navy);
+          color: #07131D;
+          transition: background 0.2s;
+        }
+        .close-btn:hover {
+          background: var(--border-light);
         }
         .drawer-links-list {
           display: flex;
           flex-direction: column;
-          padding: 1.5rem 0;
+          padding: 1.25rem 0;
           flex: 1;
-          gap: 0.5rem;
+          gap: 0.35rem;
         }
         .drawer-nav-item {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0.75rem 0;
+          padding: 0.75rem 0.5rem;
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 1.1rem;
-          color: var(--canguruber-navy);
+          font-size: 1.05rem;
+          color: #07131D;
           border-bottom: 1px solid var(--border-light);
+          border-radius: var(--radius-sm);
+        }
+        .drawer-nav-item:hover {
+          background: var(--bg-warm-white);
         }
         .drawer-sub-item {
-          padding-left: 1rem;
-          font-size: 0.9rem;
-          color: var(--text-body);
+          padding: 0.4rem 0.5rem 0.4rem 1.25rem;
+          font-size: 0.875rem;
+          color: var(--text-muted-dark);
           font-weight: 600;
+          transition: color 0.15s;
+        }
+        .drawer-sub-item:hover {
+          color: #07131D;
         }
         .drawer-bottom-actions {
           display: flex;
@@ -402,6 +462,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           gap: 0.85rem;
           padding-top: 1.25rem;
           border-top: 1px solid var(--border-light);
+          margin-top: auto;
         }
         .drawer-portal-btn {
           display: flex;
@@ -409,12 +470,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudentPortal }) => {
           justify-content: center;
           gap: 0.5rem;
           padding: 0.75rem;
-          background: var(--bg-subtle);
+          background: var(--bg-warm-white);
           border-radius: var(--radius-full);
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.85rem;
-          color: var(--canguruber-navy);
+          font-size: 0.825rem;
+          color: #07131D;
         }
         .w-full {
           width: 100%;
