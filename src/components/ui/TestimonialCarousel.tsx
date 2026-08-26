@@ -4,6 +4,11 @@ import { PLACEHOLDER_REVIEWS } from '../../data/content';
 
 export const TestimonialCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [dragEndX, setDragEndX] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
+  const minSwipeThreshold = 40;
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % PLACEHOLDER_REVIEWS.length);
@@ -11,6 +16,58 @@ export const TestimonialCarousel: React.FC = () => {
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + PLACEHOLDER_REVIEWS.length) % PLACEHOLDER_REVIEWS.length);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setDragEndX(null);
+    setDragStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setDragEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (dragStartX === null || dragEndX === null) return;
+    const diff = dragStartX - dragEndX;
+    if (diff > minSwipeThreshold) {
+      nextSlide();
+    } else if (diff < -minSwipeThreshold) {
+      prevSlide();
+    }
+    setDragStartX(null);
+    setDragEndX(null);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragEndX(null);
+    setDragStartX(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setDragEndX(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    if (dragStartX === null || dragEndX === null) return;
+    const diff = dragStartX - dragEndX;
+    if (diff > minSwipeThreshold) {
+      nextSlide();
+    } else if (diff < -minSwipeThreshold) {
+      prevSlide();
+    }
+    setDragStartX(null);
+    setDragEndX(null);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      handleMouseUp();
+    }
   };
 
   return (
@@ -50,7 +107,17 @@ export const TestimonialCarousel: React.FC = () => {
         </div>
 
         {/* Carousel / Cards Track */}
-        <div className="testimonials-grid">
+        <div 
+          className="testimonials-grid"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        >
           {PLACEHOLDER_REVIEWS.map((review, idx) => (
             <div 
               key={review.id} 

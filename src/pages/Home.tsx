@@ -38,8 +38,6 @@ interface HomeProps {
 }
 
 export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
-  const [serviceSlideIdx, setServiceSlideIdx] = useState(0);
-
   const exactServicesList = [
     {
       id: 'driving-lessons',
@@ -89,24 +87,6 @@ export const Home: React.FC<HomeProps> = ({ onSelectArticle, onHeroReady }) => {
                 EVERYTHING YOU NEED <br className="hide-mobile" />
                 TO GET ON THE ROAD
               </h2>
-            </div>
-
-            {/* Exact Carousel Chevron Buttons from Screenshot */}
-            <div className="carousel-chevrons-wrap hide-mobile">
-              <button 
-                onClick={() => setServiceSlideIdx((prev) => (prev === 0 ? exactServicesList.length - 1 : prev - 1))}
-                className="chevron-circle-btn"
-                aria-label="Previous service"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button 
-                onClick={() => setServiceSlideIdx((prev) => (prev + 1) % exactServicesList.length)}
-                className="chevron-circle-btn"
-                aria-label="Next service"
-              >
-                <ChevronRight size={20} />
-              </button>
             </div>
           </div>
 

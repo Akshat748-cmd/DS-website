@@ -8,14 +8,30 @@ interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ article, onSelect }) => {
+  const desktopPos = article.imagePositionDesktop || article.imagePosition || 'center center';
+  const mobilePos = article.imagePositionMobile || article.imagePosition || desktopPos;
+  const fit = article.imageFit || 'cover';
+  const bg = article.imageBg || '#E5E3D8';
+
   return (
     <article className="blog-card aura-card">
-      <div className="blog-card-img-wrap">
+      <div 
+        className="blog-card-img-wrap"
+        style={{
+          backgroundColor: bg,
+          '--img-pos-desktop': desktopPos,
+          '--img-pos-mobile': mobilePos,
+          '--img-fit': fit
+        } as React.CSSProperties}
+      >
         <img 
           src={article.image} 
           alt={article.title} 
           className="blog-card-img" 
           loading="lazy"
+          style={{
+            objectFit: fit
+          }}
         />
         <span className="blog-category-badge">{article.category}</span>
       </div>
@@ -52,42 +68,73 @@ export const BlogCard: React.FC<BlogCardProps> = ({ article, onSelect }) => {
           flex-direction: column;
           border-radius: var(--radius-xl);
           background: #FFFFFF;
+          overflow: hidden;
+          height: 100%;
         }
         .blog-card-img-wrap {
           position: relative;
-          height: 200px;
+          width: 100%;
+          aspect-ratio: 16 / 10.5;
+          min-height: 210px;
+          max-height: 255px;
           overflow: hidden;
-          background: #E5E3D8;
+          background-color: #E5E3D8;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        @media (max-width: 640px) {
+          .blog-card-img-wrap {
+            aspect-ratio: 16 / 10;
+            min-height: 200px;
+            max-height: none;
+          }
         }
         .blog-card-img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: var(--img-fit, cover);
+          object-position: var(--img-pos-desktop, center bottom);
           transition: transform 0.5s ease;
+          display: block;
+        }
+        @media (max-width: 640px) {
+          .blog-card-img {
+            object-position: var(--img-pos-mobile, center bottom) !important;
+          }
         }
         .blog-card:hover .blog-card-img {
-          transform: scale(1.06);
+          transform: scale(1.03);
         }
         .blog-category-badge {
           position: absolute;
-          top: 14px;
-          left: 14px;
-          background: rgba(255, 255, 255, 0.9);
+          top: 12px;
+          left: 12px;
+          z-index: 2;
+          background: rgba(255, 255, 255, 0.92);
           backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           color: var(--text-primary);
-          font-size: 0.75rem;
-          font-weight: 700;
-          padding: 0.25rem 0.75rem;
+          font-size: 0.725rem;
+          font-weight: 800;
+          padding: 0.25rem 0.7rem;
           border-radius: var(--radius-full);
           text-transform: uppercase;
-          letter-spacing: 0.04em;
-          border: 1px solid rgba(0, 0, 0, 0.05);
+          letter-spacing: 0.05em;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+          pointer-events: none;
         }
         .blog-card-content {
           padding: 1.75rem;
           display: flex;
           flex-direction: column;
           flex: 1;
+        }
+        @media (max-width: 640px) {
+          .blog-card-content {
+            padding: 1.35rem 1.25rem;
+          }
         }
         .blog-meta-row {
           display: flex;
@@ -131,6 +178,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ article, onSelect }) => {
           transition: gap 0.2s ease, color 0.2s ease;
           width: 100%;
           justify-content: space-between;
+          margin-top: auto;
         }
         .blog-read-btn:hover {
           color: #000;

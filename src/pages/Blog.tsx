@@ -42,7 +42,14 @@ export const Blog: React.FC<BlogProps> = ({ onSelectArticle }) => {
             <div className="featured-hero-article aura-card">
               <div className="featured-grid">
                 <div className="featured-img-wrap">
-                  <img src={featured.image} alt={featured.title} className="featured-img" />
+                  <img 
+                    src={featured.image} 
+                    alt={featured.title} 
+                    className="featured-img" 
+                    style={{
+                      objectPosition: featured.imagePosition || 'center 62%'
+                    }}
+                  />
                   <span className="pill-badge accent feat-badge">FEATURED GUIDE</span>
                 </div>
                 <div className="featured-content">

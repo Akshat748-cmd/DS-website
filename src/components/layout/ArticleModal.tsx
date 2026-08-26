@@ -19,7 +19,19 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
         </button>
 
         <div className="article-hero-image">
-          <img src={article.image} alt={article.title} />
+          {/* Ambient blurred backdrop derived from the article image */}
+          <div 
+            className="article-hero-backdrop"
+            style={{ backgroundImage: `url(${article.image})` }}
+          />
+          
+          {/* Main crisp full image */}
+          <img 
+            src={article.image} 
+            alt={article.title} 
+            className="article-hero-main-img"
+          />
+          
           <span className="article-tag">{article.category}</span>
         </div>
 
@@ -58,8 +70,9 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(17, 24, 32, 0.7);
-          backdrop-filter: blur(6px);
+          background: rgba(7, 19, 29, 0.78);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           z-index: 600;
           display: flex;
           align-items: center;
@@ -75,46 +88,81 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
           max-height: 90vh;
           overflow-y: auto;
           position: relative;
-          box-shadow: var(--shadow-xl);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
         }
         .article-modal-close {
           position: absolute;
-          top: 16px;
-          right: 16px;
+          top: 14px;
+          right: 14px;
           z-index: 10;
-          width: 40px;
-          height: 40px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.9);
-          backdrop-filter: blur(4px);
+          background: rgba(255, 255, 255, 0.92);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
           display: flex;
           align-items: center;
           justify-content: center;
           color: var(--text-primary);
-          box-shadow: var(--shadow-sm);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          transition: transform 0.2s, background-color 0.2s;
+        }
+        .article-modal-close:hover {
+          background: #FFFFFF;
+          transform: scale(1.05);
         }
         .article-hero-image {
           position: relative;
-          height: 280px;
+          width: 100%;
+          height: 330px;
           overflow: hidden;
-          background: #EAE8DE;
+          background: #07131D;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-        .article-hero-image img {
+        @media (max-width: 640px) {
+          .article-hero-image {
+            height: 240px;
+          }
+        }
+        .article-hero-backdrop {
+          position: absolute;
+          inset: -25px;
+          background-size: cover;
+          background-position: center;
+          filter: blur(28px) brightness(0.4);
+          opacity: 0.9;
+          transform: scale(1.15);
+          pointer-events: none;
+        }
+        .article-hero-main-img {
+          position: relative;
+          z-index: 2;
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
+          display: block;
         }
         .article-tag {
           position: absolute;
-          bottom: 16px;
-          left: 20px;
-          background: var(--text-primary);
+          top: 14px;
+          left: 14px;
+          z-index: 3;
+          background: rgba(7, 19, 29, 0.85);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           color: #FFFFFF;
-          font-size: 0.75rem;
-          font-weight: 700;
-          padding: 0.3rem 0.85rem;
+          font-size: 0.725rem;
+          font-weight: 800;
+          padding: 0.25rem 0.75rem;
           border-radius: var(--radius-full);
           text-transform: uppercase;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          letter-spacing: 0.05em;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+          pointer-events: none;
         }
         .article-modal-body {
           padding: 2.5rem 2rem;

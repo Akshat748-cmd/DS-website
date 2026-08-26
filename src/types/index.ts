@@ -67,6 +67,11 @@ export interface BlogArticle {
   author: string;
   image: string;
   content: string[];
+  imagePosition?: string;
+  imagePositionDesktop?: string;
+  imagePositionMobile?: string;
+  imageFit?: 'cover' | 'contain';
+  imageBg?: string;
 }
 
 export interface BookingState {

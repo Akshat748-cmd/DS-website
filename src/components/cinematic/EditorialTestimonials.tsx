@@ -1,24 +1,82 @@
-import React, { useState } from 'react';
-import { Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Star } from 'lucide-react';
 import { PLACEHOLDER_REVIEWS } from '../../data/content';
 
 export const EditorialTestimonials: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const isDownRef = useRef<boolean>(false);
+  const startXRef = useRef<number>(0);
+  const scrollLeftRef = useRef<number>(0);
+  const hasDraggedRef = useRef<boolean>(false);
 
-  const next = () => setActiveIdx((prev) => (prev + 1) % PLACEHOLDER_REVIEWS.length);
-  const prev = () => setActiveIdx((prev) => (prev - 1 + PLACEHOLDER_REVIEWS.length) % PLACEHOLDER_REVIEWS.length);
-
-  const current = PLACEHOLDER_REVIEWS[activeIdx];
-
-  // Girl driving background photos per review for rich storytelling
   const reviewBackgrounds = [
-    'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1600&q=85', // Girl smiling behind steering wheel driving
-    'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1600&q=85', // Young woman driving confidently
-    'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=85', // Female student driver with instructor
-    'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=85'  // Driving session on highway
+    'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=85',
+    'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=85'
   ];
 
-  const currentBg = reviewBackgrounds[activeIdx % reviewBackgrounds.length];
+  const total = PLACEHOLDER_REVIEWS.length;
+
+  const scrollToSlide = (index: number) => {
+    if (!sliderRef.current) return;
+    const targetIdx = (index + total) % total;
+    const slideWidth = sliderRef.current.offsetWidth;
+    sliderRef.current.scrollTo({
+      left: targetIdx * slideWidth,
+      behavior: 'smooth'
+    });
+    setActiveIdx(targetIdx);
+  };
+
+  // Sync activeIdx on scroll (for touch swipe on mobile and trackpad)
+  const handleScroll = () => {
+    if (!sliderRef.current) return;
+    const scrollLeft = sliderRef.current.scrollLeft;
+    const width = sliderRef.current.offsetWidth;
+    if (width > 0) {
+      const newIdx = Math.round(scrollLeft / width);
+      if (newIdx !== activeIdx && newIdx >= 0 && newIdx < total) {
+        setActiveIdx(newIdx);
+      }
+    }
+  };
+
+  // Mouse Drag to slide on desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!sliderRef.current) return;
+    isDownRef.current = true;
+    hasDraggedRef.current = false;
+    startXRef.current = e.pageX - sliderRef.current.offsetLeft;
+    scrollLeftRef.current = sliderRef.current.scrollLeft;
+    sliderRef.current.style.scrollBehavior = 'auto';
+    sliderRef.current.style.cursor = 'grabbing';
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDownRef.current || !sliderRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.2;
+    if (Math.abs(walk) > 5) {
+      hasDraggedRef.current = true;
+    }
+    sliderRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (!isDownRef.current || !sliderRef.current) return;
+    isDownRef.current = false;
+    sliderRef.current.style.cursor = 'grab';
+    sliderRef.current.style.scrollBehavior = 'smooth';
+    
+    // Snap to nearest slide
+    const width = sliderRef.current.offsetWidth;
+    const currentScroll = sliderRef.current.scrollLeft;
+    const nearest = Math.round(currentScroll / width);
+    scrollToSlide(nearest);
+  };
 
   return (
     <section className="editorial-testimonials-section section-padding">
@@ -30,52 +88,62 @@ export const EditorialTestimonials: React.FC = () => {
             </span>
             <h2 className="testimonials-headline">DRIVEN BY OUR STUDENTS.</h2>
           </div>
-
-          <div className="carousel-nav-buttons">
-            <button onClick={prev} className="nav-arrow" aria-label="Previous testimonial">
-              <ChevronLeft size={20} />
-            </button>
-            <button onClick={next} className="nav-arrow" aria-label="Next testimonial">
-              <ChevronRight size={20} />
-            </button>
-          </div>
         </div>
 
-        {/* Full-Screen Magazine Quotation Display with Girl Driving Background */}
-        <div className="magazine-quote-card">
-          {/* Background Photo of Girl Driving Car */}
-          <div className="card-bg-photo-layer">
-            <img 
-              src={currentBg} 
-              alt="Confident female student driving car with Canguruber" 
-              className="girl-driving-bg-img"
-              key={activeIdx}
-            />
-            <div className="card-photo-dark-scrim" />
-          </div>
+        {/* Native Touch & Drag Snap-Slider Viewport */}
+        <div 
+          className="testimonials-viewport"
+          ref={sliderRef}
+          onScroll={handleScroll}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+          role="region"
+          aria-label="Student testimonials slider"
+        >
+          {PLACEHOLDER_REVIEWS.map((review, i) => {
+            const bg = reviewBackgrounds[i % reviewBackgrounds.length];
+            return (
+              <div className="testimonial-slide" key={review.id}>
+                <div className="magazine-quote-card">
+                  {/* Background Photo */}
+                  <div className="card-bg-photo-layer">
+                    <img 
+                      src={bg} 
+                      alt="Confident student driver with Canguruber" 
+                      className="girl-driving-bg-img"
+                      draggable={false}
+                    />
+                    <div className="card-photo-dark-scrim" />
+                  </div>
 
-          <div className="quote-top-strip">
-            <div className="stars-cluster">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={18} className="star-yellow" fill="currentColor" />
-              ))}
-            </div>
-            <span className="pass-status-pill">{current.passStatus}</span>
-          </div>
+                  <div className="quote-top-strip">
+                    <div className="stars-cluster">
+                      {[...Array(5)].map((_, starI) => (
+                        <Star key={starI} size={18} className="star-yellow" fill="currentColor" />
+                      ))}
+                    </div>
+                    <span className="pass-status-pill">{review.passStatus}</span>
+                  </div>
 
-          <blockquote className="master-quote-text">
-            "{current.reviewText}"
-          </blockquote>
+                  <blockquote className="master-quote-text">
+                    "{review.reviewText}"
+                  </blockquote>
 
-          <div className="student-profile-footer">
-            <div className="student-avatar-box">
-              <span className="avatar-letter">{current.studentName.charAt(0)}</span>
-            </div>
-            <div className="student-meta">
-              <strong className="student-name">{current.studentName}</strong>
-              <span className="student-detail">{current.serviceType} • {current.locationTag} • {current.date}</span>
-            </div>
-          </div>
+                  <div className="student-profile-footer">
+                    <div className="student-avatar-box">
+                      <span className="avatar-letter">{review.studentName.charAt(0)}</span>
+                    </div>
+                    <div className="student-meta">
+                      <strong className="student-name">{review.studentName}</strong>
+                      <span className="student-detail">{review.serviceType} • {review.locationTag} • {review.date}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Indicator dots */}
@@ -84,7 +152,7 @@ export const EditorialTestimonials: React.FC = () => {
             <button
               key={i}
               className={`t-dot ${i === activeIdx ? 'active' : ''}`}
-              onClick={() => setActiveIdx(i)}
+              onClick={() => scrollToSlide(i)}
               aria-label={`Go to testimonial ${i + 1}`}
             />
           ))}
@@ -156,23 +224,56 @@ export const EditorialTestimonials: React.FC = () => {
           transform: translateY(-2px);
         }
 
+        /* Testimonials Viewport & Multi-Slide Snap Track */
+        .testimonials-viewport {
+          position: relative;
+          width: 100%;
+          display: flex;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          border-radius: var(--radius-lg);
+          user-select: none;
+          cursor: grab;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        .testimonials-viewport::-webkit-scrollbar {
+          display: none;
+        }
+        @media (max-width: 768px) {
+          .testimonials-viewport {
+            border-radius: var(--radius-md);
+          }
+        }
+        .testimonial-slide {
+          flex: 0 0 100%;
+          min-width: 100%;
+          width: 100%;
+          scroll-snap-align: start;
+          scroll-snap-stop: always;
+          box-sizing: border-box;
+        }
+
         /* Magazine Card */
         .magazine-quote-card {
           position: relative;
           background: #07131D;
           border: 1px solid rgba(255, 255, 255, 0.18);
           border-radius: var(--radius-lg);
-          padding: 3rem 3.5rem;
-          min-height: 330px;
+          padding: 3.5rem 4rem;
+          min-height: 340px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
           overflow: hidden;
         }
         @media (max-width: 768px) {
           .magazine-quote-card {
-            padding: 1.75rem 1.25rem;
+            padding: 2rem 1.35rem;
             min-height: auto;
             border-radius: var(--radius-md);
           }
@@ -191,11 +292,6 @@ export const EditorialTestimonials: React.FC = () => {
           object-fit: cover;
           object-position: center 35%;
           transform: scale(1.03);
-          animation: fadeImg 0.6s ease;
-        }
-        @keyframes fadeImg {
-          from { opacity: 0; transform: scale(1.08); }
-          to { opacity: 1; transform: scale(1.03); }
         }
         .card-photo-dark-scrim {
           position: absolute;
